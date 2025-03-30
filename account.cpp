@@ -85,12 +85,18 @@ void CreditAccount::withdraw(const Date& date, double amount, const std::string&
 	}
 }
 
-void CreditAccount::settle(const Date& date)
+void CreditAccount::settle(const Date& date)             //结算利息
 {
-
+	double interest = Acc.getSum(date) * rate;
+	if (interest != 0)
+		record(date, interest, "interest");
+	if (date.getMonth() == 1)            //该交年费了
+		record(date, -fee, "annual fee");
+	Acc.reset(date, getDebt());
 }
 
 void CreditAccount::show()const
 {
-
+	Account::show();
+	cout << "\tAvailable credit:" << getAvailableCredit();
 }
