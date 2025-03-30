@@ -5,11 +5,6 @@ using namespace std;
 namespace {
 	const int DAYS_BEFORE_MONTH[] = { 0,31,59,90, 120, 151, 181, 212, 243, 273, 304, 334, 365 };
 }
-
-//Date::Date()
-//{
-//	cout << "date error!" << endl;
-//}
 Date::Date(int year, int month, int day)
 {
 	this->year = year;

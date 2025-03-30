@@ -3,20 +3,40 @@
 #include <cmath>
 #include <string>
 using namespace std;
-double SavingsAccount::total = 0;
-SavingsAccount::SavingsAccount(const Date& date, const std::string& id, double rate):lastDate(date), id(id), rate(rate), balance(0), accumulation(0)
+double Account::total = 0;
+Account::Account(const Date &date,const string &id):id(id),balance(0)
 {
 	date.show();
-	cout << "\t#" << id << " created" << endl;
+	cout << "\t#" << id << "created" << endl;
 }
-void SavingsAccount::error(const std::string& msg) const {
-	cout << "Error(#" << id << "): " << msg << endl;
+void Account::error(const std::string& msg) const {
+	std::cout << "Error(#" << id << "): " << msg << endl;
+}
+void Account::record(const Date& date, double amount,const std::string &desc)
+{
+	amount = floor(amount * 100 + 0.5) / 100;         //保留小数点后两位
+	balance += amount;
+	total += amount;
+	date.show();
+	std::cout << "\t#" << id << "\t" << amount << "\t" << balance << "\t" << desc << endl;
 }
 
-void SavingsAccount::deposit(const Date& date,double amount, const std::string& desc)
+void Account::show() const
 {
-	record(date, amount,desc);
+	std::cout << id << "\tBalance: " << balance;
 }
+
+/***********************************************************************************************************/
+SavingsAccount::SavingsAccount(const Date& date, const std::string& id, double rate):Account(date,id),rate(rate),Acc(date,0)
+{
+
+}
+
+void SavingsAccount::deposit(const Date& date, double amount, const std::string& desc)
+{
+	record(date, amount, desc);
+}
+
 void SavingsAccount::withdraw(const Date& date, double amount, const std::string& desc)
 {
 	if (amount > getBalance())
@@ -25,45 +45,52 @@ void SavingsAccount::withdraw(const Date& date, double amount, const std::string
 	}
 	else
 	{
-		record(date, -amount,desc);
+		record(date, -amount, desc);
 	}
 }
-void SavingsAccount::record(const Date& date, double amount,const std::string &desc)
+
+void SavingsAccount::settle(const Date & date)
 {
-	accumulation = accumulate(date);
-	lastDate = date;
-	amount = floor(amount * 100 + 0.5) / 100;         //保留小数点后两位
-	balance += amount;
-	total += amount;
-	this->lastDate.show();
-	cout << "\t#" << id << "\t" << amount << "\t" << balance << "\t" << desc << endl;
+	double money = Acc.getSum(date) * rate / date.distance(Date(date.getYear()-1,1,1));
+	if (money != 0)
+	record(date, money, "interest");
+	Acc.reset(date, getBalance());
+
+
 }
-double SavingsAccount::accumulate(const Date & date) const 
+
+/******************************************************************************************************/
+CreditAccount::CreditAccount(const Date& date, const std::string& id, double credit, double fee, double rate):Account(date,id),Acc(date,0),
+credit(credit),fee(fee),rate(rate)
 {
-	return accumulation + balance * date.distance(lastDate);
+	
 }
-string SavingsAccount::getId() const
+
+void CreditAccount::deposit(const Date& date, double amount, const std::string& desc)	//存款
 {
-	return id;
+	record(date, amount, desc);
+	Acc.change(date, getDebt());
 }
-double SavingsAccount::getBalance() const
+
+void CreditAccount::withdraw(const Date& date, double amount, const std::string& desc)
 {
-	return balance;
+	if (amount - getBalance() > credit)
+	{
+		error("not enough credit");
+	}
+	else
+	{
+		record(date, -amount, desc);
+		Acc.change(date, getDebt());
+	}
 }
-double SavingsAccount::getRate() const
+
+void CreditAccount::settle(const Date& date)
 {
-	return rate;
+
 }
-void SavingsAccount::show() const
+
+void CreditAccount::show()const
 {
-	cout << id << "\tBalance: " << balance;
-}
-void SavingsAccount::settle(const Date& date)
-{
-	double money = accumulate(date) * rate / date.distance(Date(date.getYear()-1,1,1));
-	/*if (money != 0)*/
-	/*{*/
-		record(date, money,"interest");
-	/*}*/
-	accumulation = 0;
+
 }

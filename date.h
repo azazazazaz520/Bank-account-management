@@ -1,3 +1,5 @@
+#ifndef DATE_H
+#define DATE_H
 class Date {
 private:
 	int year;
@@ -5,19 +7,19 @@ private:
 	int day;
 	int totalDays;     //当前日期到公元元年的天数
 public:
-	//Date();
 	Date(int year, int month, int day);
-	bool isLeapyear() const
+	bool isLeapyear() const            //判断闰年
 	{
 		return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 	}
 	int getMaxDay() const;
 	void show() const;
-	int getYear() const { return year; }
-	int getMonth() const { return month; }
-	int getDay() const { return day; }
+	int getYear() const { return year; }         //获取年
+	int getMonth() const { return month; }    //获取月
+	int getDay() const { return day; }     //获取天
 	int distance(const Date & date) const
 	{
 		return totalDays - date.totalDays;
 	}
 };
+#endif // DATE_H

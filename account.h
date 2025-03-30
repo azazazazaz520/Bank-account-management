@@ -2,29 +2,76 @@
 #define __ACCOUNT_H__
 #include "date.h"
 #include <string>
-class SavingsAccount {
+#include "Accumulator.h"
+class Account {
 private:
-	std::string id;              //用户id 
-	double balance;      //余额   
-	double rate;         //年利率 
-	Date lastDate;
-	double accumulation;    //存储上次计算利息以后直到最近一次余额变动时余额按日累加的值
-	static double total;    //所有用户的总钱数
+	std::string id;
+	double balance;      //余额
+	static double total;        //所有账户的总金额
+protected:
+	Account(const Date &date, const std::string &id);
+	void record(const Date &date, double amount, const std::string& desc);
+	void error(const std::string& msg)const;
+	
 public:
-	//SavingsAccount();
-	SavingsAccount(const Date& date, const std::string& id, double rate);
-	void error(const std::string& msg) const;
-	void record(const Date & date, double amount, const std::string& desc);
-	double accumulate(const Date& date) const;     //计算截至指定日期的账户余额按日累积值
-	std::string getId() const;
-	double getBalance() const;
-	double getRate() const;
+	void show() const;
+	double getBalance()const { return balance; }
+	const std::string getId(const std::string& id)const { return id; }
 	static double getTotal() { return total; }
-	void show() const;   //显示账户信息
-	void deposit(const Date & date, double amount,const std::string &desc);  //存款
-	void withdraw(const Date & date, double amount, const std::string& desc);    //取款
-	void settle(const Date & date);          //结算利息
+};
+
+/**************************************************************************************************/
+
+class SavingsAccount : public Account {
+private:
+	Accumulator Acc;       //累加器
+	double rate;         //年利率 
+public:
+	
+	SavingsAccount(const Date& date, const std::string& id, double rate);
+	double getRate() const { return rate; }
+	void deposit(const Date& date, double amount, const std::string& desc);  //存款
+	void withdraw(const Date& date, double amount, const std::string& desc);    //取款
+	void settle(const Date& date);          //结算利息
 
 
 };
+
+
+/**************************************************************************************************/
+
+
+
+
+class CreditAccount :public Account {
+private:
+	Accumulator Acc;       //累加器
+	double credit;         //信用额度
+	double rate;		   //欠款日利率
+	double fee;				//信用卡的年费
+	double getDebt() const {	//获得欠款额
+		double balance = getBalance();
+		return (balance < 0 ? balance : 0);
+	}
+public:
+	CreditAccount(const Date &date, const std::string& id,double credit,double fee, double rate);
+	double getCredit()const { return credit; }
+	double gatRate() const { return rate; }
+	double getFee() const { return fee; }
+	double getAvailableCredit()const {                //获取可用信用额度
+		if (getBalance() < 0)
+		{
+			return credit + getBalance();
+		}
+		else {
+			return credit;
+		}
+	}
+	void deposit(const Date& date, double amount, const std::string& desc);
+	void withdraw(const Date& date, double amount, const std::string& desc);
+	void settle(const Date &date);
+	void show()const;
+
+};
+
 #endif
