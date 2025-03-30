@@ -1,3 +1,6 @@
+#ifndef __ACCUMULATOR_H__
+#define __ACCUMULATOR_H__
+
 #include <iostream>
 #include "date.h"
 class Accumulator {
@@ -6,7 +9,7 @@ private:
 	double value;          //当前数值
 	double sum;            //当前的和
 public:
-	Accumulator(const Date &lastdate, double value):lastdate(lastdate),value(value),sum(0){}
+	Accumulator(const Date &date, double value):lastdate(date),value(value),sum(0){}
 	double getSum(const Date &date) const {
 		return sum + value * date.distance(lastdate);
 	}
@@ -23,3 +26,4 @@ public:
 		sum = 0;
 	}
 };
+#endif

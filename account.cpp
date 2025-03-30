@@ -27,7 +27,8 @@ void Account::show() const
 }
 
 /***********************************************************************************************************/
-SavingsAccount::SavingsAccount(const Date& date, const std::string& id, double rate):Account(date,id),rate(rate),Acc(date,0)
+SavingsAccount::SavingsAccount(const Date& date, const std::string& id, double rate)
+	:Account(date,id),rate(rate),Acc(date,0)
 {
 
 }
@@ -35,6 +36,8 @@ SavingsAccount::SavingsAccount(const Date& date, const std::string& id, double r
 void SavingsAccount::deposit(const Date& date, double amount, const std::string& desc)
 {
 	record(date, amount, desc);
+	Acc.change(date, getBalance());
+
 }
 
 void SavingsAccount::withdraw(const Date& date, double amount, const std::string& desc)
@@ -46,6 +49,8 @@ void SavingsAccount::withdraw(const Date& date, double amount, const std::string
 	else
 	{
 		record(date, -amount, desc);
+		Acc.change(date, getBalance());
+
 	}
 }
 
@@ -60,7 +65,8 @@ void SavingsAccount::settle(const Date & date)
 }
 
 /******************************************************************************************************/
-CreditAccount::CreditAccount(const Date& date, const std::string& id, double credit, double fee, double rate):Account(date,id),Acc(date,0),
+CreditAccount::CreditAccount(const Date& date, const std::string& id, double credit, double rate,double fee)
+	:Account(date,id),Acc(date,0),
 credit(credit),fee(fee),rate(rate)
 {
 	

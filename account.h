@@ -32,7 +32,7 @@ public:
 	double getRate() const { return rate; }
 	void deposit(const Date& date, double amount, const std::string& desc);  //存款
 	void withdraw(const Date& date, double amount, const std::string& desc);    //取款
-	void settle(const Date& date);          //结算利息
+	void settle(const Date& date);          //结算利息,每年1月1日调用
 
 
 };
@@ -54,7 +54,7 @@ private:
 		return (balance < 0 ? balance : 0);
 	}
 public:
-	CreditAccount(const Date &date, const std::string& id,double credit,double fee, double rate);
+	CreditAccount(const Date &date, const std::string& id,double credit,double rate,double fee);
 	double getCredit()const { return credit; }
 	double gatRate() const { return rate; }
 	double getFee() const { return fee; }
