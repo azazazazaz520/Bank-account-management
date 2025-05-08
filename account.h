@@ -14,10 +14,19 @@ protected:
 	void error(const std::string& msg)const;
 	
 public:
-	void show() const;
 	double getBalance()const { return balance; }
 	const std::string getId(const std::string& id)const { return id; }
 	static double getTotal() { return total; }
+
+	//存入现金，date为日期，amount为金额，desc为款项说明
+	virtual void deposit(const Date& date, double amount, const std::string& desc) = 0;
+	//取出
+	virtual void withdraw(const Date& date, double amount, const std::string& desc) = 0;
+	//结算（计算利息、年费等），每月结算一次，date为结算日期
+	virtual void settle(const Date& date) = 0;
+	//显示账户信息
+	virtual void show() const;
+
 };
 
 /**************************************************************************************************/
@@ -30,9 +39,9 @@ public:
 	
 	SavingsAccount(const Date& date, const std::string& id, double rate);
 	double getRate() const { return rate; }
-	void deposit(const Date& date, double amount, const std::string& desc);  //存款
-	void withdraw(const Date& date, double amount, const std::string& desc);    //取款
-	void settle(const Date& date);          //结算利息,每年1月1日调用
+	virtual void deposit(const Date& date, double amount, const std::string& desc);  //存款
+	virtual void withdraw(const Date& date, double amount, const std::string& desc);    //取款
+	virtual void settle(const Date& date);          //结算利息,每年1月1日调用
 
 
 };
@@ -67,10 +76,10 @@ public:
 			return credit;
 		}
 	}
-	void deposit(const Date& date, double amount, const std::string& desc);
-	void withdraw(const Date& date, double amount, const std::string& desc);
-	void settle(const Date &date);
-	void show()const;
+	virtual void deposit(const Date& date, double amount, const std::string& desc);
+	virtual void withdraw(const Date& date, double amount, const std::string& desc);
+	virtual void settle(const Date &date);
+	virtual void show()const;
 
 };
 

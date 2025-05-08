@@ -12,8 +12,8 @@ public:
 	{
 		return year % 4 == 0 && year % 100 != 0 || year % 400 == 0;
 	}
-	int getMaxDay() const;
-	void show() const;
+	int getMaxDay() const;       //输出当前月有多少天
+	void show() const;          //输出当前日期
 	int getYear() const { return year; }         //获取年
 	int getMonth() const { return month; }    //获取月
 	int getDay() const { return day; }     //获取天

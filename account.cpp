@@ -56,10 +56,14 @@ void SavingsAccount::withdraw(const Date& date, double amount, const std::string
 
 void SavingsAccount::settle(const Date & date)
 {
-	double money = Acc.getSum(date) * rate / date.distance(Date(date.getYear()-1,1,1));
-	if (money != 0)
-	record(date, money, "interest");
-	Acc.reset(date, getBalance());
+	if (date.getMonth() == 1)
+	{
+		double money = Acc.getSum(date) * rate / date.distance(Date(date.getYear() - 1, 1, 1));
+		if (money != 0)
+			record(date, money, "interest");
+		Acc.reset(date, getBalance());
+	}
+	
 
 
 }
