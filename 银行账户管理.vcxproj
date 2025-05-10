@@ -129,12 +129,13 @@
   <ItemGroup>
     <ClCompile Include="account.cpp" />
     <ClCompile Include="date.cpp" />
-    <ClCompile Include="step_04.cpp" />
+    <ClCompile Include="step_05.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="account.h" />
     <ClInclude Include="Accumulator.h" />
     <ClInclude Include="date.h" />
+    <ClInclude Include="Array.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

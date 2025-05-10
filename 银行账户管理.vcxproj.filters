@@ -18,7 +18,7 @@
     <ClCompile Include="account.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="step_04.cpp">
+    <ClCompile Include="step_05.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="date.cpp">
@@ -33,6 +33,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Accumulator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

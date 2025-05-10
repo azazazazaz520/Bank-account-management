@@ -7,7 +7,7 @@ double Account::total = 0;
 Account::Account(const Date &date,const string &id):id(id),balance(0)
 {
 	date.show();
-	cout << "\t#" << id << "created" << endl;
+	cout << "\t#" << id << " created" << endl;
 }
 void Account::error(const std::string& msg) const {
 	std::cout << "Error(#" << id << "): " << msg << endl;
