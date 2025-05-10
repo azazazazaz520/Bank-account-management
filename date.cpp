@@ -42,3 +42,8 @@ void Date::show() const
 {
 	cout << getYear() << "-" << getMonth() << "-" << getDay();
 }
+const Date& Date::read()
+{
+	Date to_return(this->year, this->month, this->day);
+	return to_return;
+}

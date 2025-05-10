@@ -7,6 +7,9 @@ private:
 	int day;
 	int totalDays;     //当前日期到公元元年的天数
 public:
+	Date(){
+
+	}
 	Date(int year, int month, int day);
 	bool isLeapyear() const            //判断闰年
 	{
@@ -17,9 +20,10 @@ public:
 	int getYear() const { return year; }         //获取年
 	int getMonth() const { return month; }    //获取月
 	int getDay() const { return day; }     //获取天
-	int distance(const Date & date) const
-	{
+	int operator - (const Date& date) const {
 		return totalDays - date.totalDays;
 	}
+
+	const Date& read();
 };
 #endif // DATE_H

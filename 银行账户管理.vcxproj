@@ -128,11 +128,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="account.cpp" />
+    <ClCompile Include="AccountRecord.cpp" />
     <ClCompile Include="date.cpp" />
     <ClCompile Include="step_05.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="account.h" />
+    <ClInclude Include="AccountRecord.h" />
     <ClInclude Include="Accumulator.h" />
     <ClInclude Include="date.h" />
     <ClInclude Include="Array.h" />

@@ -3,6 +3,8 @@
 #include "date.h"
 #include <string>
 #include "Accumulator.h"
+#include <map>
+#include "AccountRecord.h"
 class Account {
 private:
 	std::string id;
@@ -12,7 +14,7 @@ protected:
 	Account(const Date &date, const std::string &id);
 	void record(const Date &date, double amount, const std::string& desc);
 	void error(const std::string& msg)const;
-	
+	//static std::multimap<Date, AccountRecord> recordMap;	
 public:
 	double getBalance()const { return balance; }
 	const std::string getId(const std::string& id)const { return id; }
@@ -62,6 +64,8 @@ private:
 		double balance = getBalance();
 		return (balance < 0 ? balance : 0);
 	}
+	
+	
 public:
 	CreditAccount(const Date &date, const std::string& id,double credit,double rate,double fee);
 	double getCredit()const { return credit; }

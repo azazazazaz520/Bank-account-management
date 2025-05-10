@@ -8,7 +8,7 @@ using namespace std;
 
 int main() {
 
-	Date date(2017, 12, 1);	//起始日期
+	Date date(2008, 11, 1);	//起始日期
 	Array<Account*> accounts(0);	//创建账户数组，元素个数为0
 	cout << "(a)add account (d)deposit (w)withdraw (s)show (c)change day (n)next month (e)exit" << endl;
 	char cmd;	
@@ -18,6 +18,7 @@ int main() {
 		cout << "\tTotal: " << Account::getTotal() << "\tcommand> ";
 		char type;     //账户类型
 		int index, day;  //index储存用户的序号
+		Date date1, date2;
 		double amount, credit, rate, fee;
 		string id ,desc;
 		Account* account;
@@ -70,6 +71,13 @@ int main() {
 			for (int i = 0; i < accounts.getSize(); i++)
 				accounts[i]->settle(date);            //所有账户的结算
 
+			break;
+		case 'q':
+			//date1 = Date::read();
+
+			//date2 = Date::read()
+
+			//Account::query(date1, date2);
 			break;
 		}
 	} while (cmd != 'e');

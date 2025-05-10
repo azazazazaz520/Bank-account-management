@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 double Account::total = 0;
+
 Account::Account(const Date &date,const string &id):id(id),balance(0)
 {
 	date.show();
@@ -18,6 +19,8 @@ void Account::record(const Date& date, double amount,const std::string &desc)
 	balance += amount;
 	total += amount;
 	date.show();
+	//AccountRecord a_record(date, amount, balance, desc);
+	//recordMap.insert(std::make_pair(date, a_record));
 	std::cout << "\t#" << id << "\t" << amount << "\t" << balance << "\t" << desc << endl;
 }
 
@@ -56,13 +59,14 @@ void SavingsAccount::withdraw(const Date& date, double amount, const std::string
 
 void SavingsAccount::settle(const Date & date)
 {
-	if (date.getMonth() == 1)
-	{
-		double money = Acc.getSum(date) * rate / date.distance(Date(date.getYear() - 1, 1, 1));
-		if (money != 0)
-			record(date, money, "interest");
+	if (date.getMonth() == 1) {	//每年的一月计算一次利息
+		double interest = Acc.getSum(date) * rate
+			/ (date - Date(date.getYear() - 1, 1, 1));
+		if (interest != 0)
+			record(date, interest, "interest");
 		Acc.reset(date, getBalance());
 	}
+
 	
 
 

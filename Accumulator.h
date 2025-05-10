@@ -11,7 +11,7 @@ private:
 public:
 	Accumulator(const Date &date, double value):lastdate(date),value(value),sum(0){}
 	double getSum(const Date &date) const {
-		return sum + value * date.distance(lastdate);
+		return sum + value * (date - lastdate);
 	}
 	void change(const Date &date, double value)
 	{
