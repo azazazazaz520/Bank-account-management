@@ -1,5 +1,7 @@
 #ifndef DATE_H
 #define DATE_H
+#include <regex>
+
 class Date {
 private:
 	int year;
@@ -23,7 +25,12 @@ public:
 	int operator - (const Date& date) const {
 		return totalDays - date.totalDays;
 	}
-
-	const Date& read();
+	bool operator < (const Date& date) const {
+		if (year != date.year) return year < date.year;
+		if (month != date.month) return month < date.month;
+		return day < date.day;
+		
+	}
+	static Date read();
 };
 #endif // DATE_H

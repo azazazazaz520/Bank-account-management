@@ -1,7 +1,6 @@
 #pragma once
 //Array.h
-/*
-实现了一个动态数组模板类 Array，
+/*实现了一个动态数组模板类 Array，
 提供了类似C++内置数组的功能，
 同时具备动态大小调整、深拷贝、安全的元素访问等特性。*/
 
@@ -20,13 +19,13 @@ public:
 	Array(int sz = 50);			//构造函数
 	Array(const Array<T>& a);	//拷贝构造函数
 	~Array();	//析构函数
-	Array<T>& operator = (const Array<T>& rhs); //重载"="使数组对象可以整体赋值
-	T& operator [] (int i);	//重载"[]"，使Array对象可以起到C++普通数组的作用
+	Array<T>& operator = (const Array<T>& rhs);          //重载"="使数组对象可以整体赋值
+	T& operator [] (int i);	            //重载"[]"，使Array对象可以起到C++普通数组的作用
 	const T& operator [] (int i) const;	//"[]"运算符的const版本
-	operator T* ();	//重载到T*类型的转换，使Array对象可以起到C++普通数组的作用
+	operator T* ();	            //重载到T*类型的转换，使Array对象可以起到C++普通数组的作用
 	operator const T* () const;	//到T*类型转换操作符的const版本
-	int getSize() const;	//取数组的大小
-	void resize(int sz);	//修改数组的大小
+	int getSize() const;	               //取数组的大小
+	void resize(int sz);	               //修改数组的大小
 };
 
 //构造函数
@@ -119,4 +118,6 @@ void Array<T>::resize(int sz) {
 	list = newList;	// 使list指向新数组
 	size = sz;	//更新size
 }
+
+
 #endif  //ARRAY_H

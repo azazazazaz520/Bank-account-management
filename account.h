@@ -3,8 +3,8 @@
 #include "date.h"
 #include <string>
 #include "Accumulator.h"
-#include <map>
 #include "AccountRecord.h"
+#include <map>
 class Account {
 private:
 	std::string id;
@@ -14,12 +14,13 @@ protected:
 	Account(const Date &date, const std::string &id);
 	void record(const Date &date, double amount, const std::string& desc);
 	void error(const std::string& msg)const;
-	//static std::multimap<Date, AccountRecord> recordMap;	
+	static std::multimap<Date, AccountRecord> recordMap;
 public:
+	
 	double getBalance()const { return balance; }
 	const std::string getId(const std::string& id)const { return id; }
 	static double getTotal() { return total; }
-
+	static void query(const Date& date1,const Date& date2);         //查询一段日期之间的账目
 	//存入现金，date为日期，amount为金额，desc为款项说明
 	virtual void deposit(const Date& date, double amount, const std::string& desc) = 0;
 	//取出

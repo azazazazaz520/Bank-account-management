@@ -42,8 +42,21 @@ void Date::show() const
 {
 	cout << getYear() << "-" << getMonth() << "-" << getDay();
 }
-const Date& Date::read()
-{
-	Date to_return(this->year, this->month, this->day);
-	return to_return;
-}
+    // 修改后的静态成员函数实现
+    Date Date::read()
+    {
+        string date;
+        cin >> date;
+        int y = 0, m = 0, d = 0;
+        regex date_regex(R"((\d+)/(\d+)/(\d+))");
+        smatch match;
+        if (std::regex_match(date, match, date_regex)) {
+            y = std::stoi(match[1]);
+            m = std::stoi(match[2]);
+            d = std::stoi(match[3]);
+        }
+        Date to_date(y, m, d);
+        return to_date;
+    }
+
+	
