@@ -2,9 +2,22 @@
 #define __ACCOUNT_H__
 #include "date.h"
 #include <string>
+#include <stdexcept>
 #include "Accumulator.h"
 #include "AccountRecord.h"
 #include <map>
+class Account;
+
+
+class AccountException : public std::runtime_error {
+private:
+	const Account* account;  // 指向发生错误的账户
+public:
+	AccountException(const Account* acc, const std::string& msg)
+		: std::runtime_error(msg), account(acc) {}
+	const Account* getAccount() const { return account; }
+};
+
 class Account {
 private:
 	std::string id;
@@ -18,7 +31,7 @@ protected:
 public:
 	
 	double getBalance()const { return balance; }
-	const std::string getId(const std::string& id)const { return id; }
+	const std::string& getId() const { return id; }
 	static double getTotal() { return total; }
 	static void query(const Date& date1,const Date& date2);         //查询一段日期之间的账目
 	//存入现金，date为日期，amount为金额，desc为款项说明

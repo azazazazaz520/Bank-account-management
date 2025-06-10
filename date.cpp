@@ -10,12 +10,10 @@ Date::Date(int year, int month, int day)
 	this->year = year;
 	this->month = month;
 	this->day = day;
-	if (day <= 0 || day > getMaxDay())
-	{
-		cout << "Invalid date: ";
-		show();
-		cout << endl;
-		exit(1);
+	if (day <= 0 || day > getMaxDay()) {
+		std::string msg = "Invalid date: " + std::to_string(year) + "-"
+			+ std::to_string(month) + "-" + std::to_string(day);
+		throw std::runtime_error(msg);
 	}
 	else
 	{
@@ -55,6 +53,9 @@ void Date::show() const
             m = std::stoi(match[2]);
             d = std::stoi(match[3]);
         }
+		if (!std::regex_match(date, match, date_regex)) {
+			throw std::runtime_error("Invalid date format. Use YYYY/MM/DD.");
+		}
         Date to_date(y, m, d);
         return to_date;
     }

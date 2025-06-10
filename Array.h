@@ -74,13 +74,17 @@ Array<T>& Array<T>::operator = (const Array<T>& rhs) {
 //重载下标运算符，实现与普通数组一样通过下标访问元素，并且具有越界检查功能
 template <class T>
 T& Array<T>::operator[] (int n) {
-	assert(n >= 0 && n < size);	//检查下标是否越界
+	if (n < 0 || n >= size) {
+		throw std::out_of_range("Array index out of bounds.");          //实验修改
+	}
 	return list[n];			//返回下标为n的数组元素
 }
 
 template <class T>
 const T& Array<T>::operator[] (int n) const {
-	assert(n >= 0 && n < size);	//检查下标是否越界
+	if (n < 0 || n >= size) {
+		throw std::out_of_range("Array index out of bounds.");          //实验修改
+	}
 	return list[n];			//返回下标为n的数组元素
 }
 
@@ -118,6 +122,9 @@ void Array<T>::resize(int sz) {
 	list = newList;	// 使list指向新数组
 	size = sz;	//更新size
 }
+
+
+
 
 
 #endif  //ARRAY_H

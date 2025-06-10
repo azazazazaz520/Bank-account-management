@@ -18,7 +18,7 @@
     <ClCompile Include="account.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="step_06.cpp">
+    <ClCompile Include="bank_main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="date.cpp">

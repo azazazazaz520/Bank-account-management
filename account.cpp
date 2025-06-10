@@ -11,7 +11,7 @@ Account::Account(const Date &date,const string &id):id(id),balance(0)
 	cout << "\t#" << id << " created" << endl;
 }
 void Account::error(const std::string& msg) const {
-	std::cout << "Error(#" << id << "): " << msg << endl;
+	throw AccountException(this, msg);
 }
 void Account::record(const Date& date, double amount, const std::string& desc)
 {
@@ -81,10 +81,6 @@ void SavingsAccount::settle(const Date & date)
 			record(date, interest, "interest");
 		Acc.reset(date, getBalance());
 	}
-
-	
-
-
 }
 
 /******************************************************************************************************/

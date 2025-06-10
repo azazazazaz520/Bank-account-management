@@ -129,7 +129,7 @@
   <ItemGroup>
     <ClCompile Include="account.cpp" />
     <ClCompile Include="date.cpp" />
-    <ClCompile Include="step_06.cpp" />
+    <ClCompile Include="bank_main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="account.h" />
